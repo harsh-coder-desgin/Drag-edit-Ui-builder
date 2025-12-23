@@ -1,0 +1,14 @@
+{
+  "tag": "button",
+  "text": "Add",
+  "variant": "success",
+  "size": "px-2",
+  "radius": "rounded-none",
+  "fontWeight": "medium",
+  "textAlign": "center",
+  "display": "none",
+  "padding": "p-0",
+  "shadow": "none",
+  "border": "none",
+  "disabled": false
+}
