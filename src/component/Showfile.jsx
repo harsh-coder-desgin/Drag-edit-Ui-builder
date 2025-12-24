@@ -80,7 +80,6 @@ function Showfile({ comp }) {
   const inlineTags = ["button", "span", "a", "strong", "em", "small", "label", "code"];
   const blockTags = ["p", "div", "section", "article", "header"];
   
-  
   const isInline = inlineTags.includes(comp.tag);
   return (
     <div>
@@ -91,8 +90,6 @@ function Showfile({ comp }) {
         >{name[0].text}</Tag>
     </div>
   )
-
-  
 }
 
 export default Showfile

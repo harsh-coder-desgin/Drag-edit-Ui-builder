@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Showfile from './Showfile'
 import Data from './data.json'
 import Style from './style.json'
 import { useRef } from 'react'
 
-function Viewcomponet() {
+function Viewcomponet({sendfunction ,id}) {
   let ref = useRef(0)
   const [allcomp, Setallcomp] = useState([])
   const [code, Setcode] = useState('')
@@ -32,9 +32,6 @@ function Viewcomponet() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(code.replace("className", "class"), "text/html");
     const el = doc.body.firstElementChild;
-    let widthonly = el.offsetWidth
-    console.log(widthonly)
-    
     schemadata.tag = el.tagName.toLocaleLowerCase()
     schemadata.text = el.textContent
     let clssss = el.className.split(" ")
@@ -93,13 +90,6 @@ function Viewcomponet() {
       } else if (Number(padding) > 8) {
         schemadata.padding = "xl"
       }
-
-      // for (let j = 0; j < clssss.length; j++) {
-      //   if (dataarray[i] === clssss[j].slice(0, clssss[j].length - 4)) {
-      //     userstyledata.push(clssss[j].slice(0, clssss[j].length - 4))
-      //     console.log(userstyledata)
-      //   }
-      // }
     }
 
     ref.current = ref.current + 1    
@@ -111,16 +101,29 @@ function Viewcomponet() {
       }
     ]);
   }
-  console.log(allcomp);
+
+  useEffect(()=>{
+    console.log(allcomp,"useEffect");
+    sendfunction(allcomp)
+  },[allcomp])
+
+  const handleDragStart = (e) => {
+    id(e.target.id)
+  };
 
   return (
     <div className='dark:bg-gray-900 w-200 h-screen'>
       <input onChange={(e) => { Setcode(e.target.value) }} value={code}
         className='w-160 h-8 p-5 mt-5 ml-13 bg-gray-600 text-white font-3xl' placeholder='Copy Paste Code Here' />
       <button onClick={handleclick} className='bg-green-400 px-6 py-2'>Add</button>
+      <div>
+        <p className='bg-blue-900 text-center text-white mt-2 text-lg p-2' >Drag-and-edit UI builder where you can add one HTML tag at a 
+          time and visually modify its content and styles.</p>
+      </div>
       <div className='flex flex-wrap gap-2'>
         {allcomp?.map((data) => (
-          <div className='' key={data.id}>
+          <div className='' key={data.id} id={data.id}
+             draggable onDragStart={(e) => handleDragStart(e)}>
             <Showfile comp={data.name} />
           </div>
         ))}
