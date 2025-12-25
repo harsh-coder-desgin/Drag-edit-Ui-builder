@@ -99,20 +99,19 @@ function Viewcomponet({sendfunction ,id}) {
         id: ref.current,
         name: structuredClone(schemadata)
       }
-    ]);
-  }
+      ]);
+    }
 
-  useEffect(()=>{
-    console.log(allcomp,"useEffect");
-    sendfunction(allcomp)
-  },[allcomp])
+    useEffect(()=>{
+      sendfunction(allcomp)
+    },[allcomp])
 
-  const handleDragStart = (e) => {
-    id(e.target.id)
-  };
+    const handleDragStart = (e) => {
+      id(e.target.id)
+    };
 
   return (
-    <div className='dark:bg-gray-900 w-200 h-screen'>
+    <div className='bg-gray-900 w-200 h-screen'>
       <input onChange={(e) => { Setcode(e.target.value) }} value={code}
         className='w-160 h-8 p-5 mt-5 ml-13 bg-gray-600 text-white font-3xl' placeholder='Copy Paste Code Here' />
       <button onClick={handleclick} className='bg-green-400 px-6 py-2'>Add</button>
