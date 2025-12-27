@@ -12,8 +12,7 @@ function Viewcomponet({ sendfunction, id }) {
   const schemadata = Data
 
   const handleclick = () => {
-    console.log(allcomp.length);
-    if (allcomp.length >= 9) {
+    if (allcomp.length >= 8) {
       Seterror("Not more Tag allowed");
       return
     }
@@ -160,17 +159,17 @@ function Viewcomponet({ sendfunction, id }) {
   };
 
   return (
-    <div className='bg-gray-900 w-200 h-screen'>
+    <div className='w-200 bg-gray-900 md:h-screen h-200'>
       <input onChange={(e) => { Setcode(e.target.value), Seterror('') }} value={code}
-        className='w-160 h-8 p-5 mt-5 ml-13 bg-gray-600 text-white font-3xl' placeholder='Copy Paste Code Here' />
-      <button onClick={handleclick} className='bg-green-400 px-6 py-2'>Add</button>
+        className='w-180 h-20 p-5 mt-9 ml-9 bg-gray-600 text-white text-3xl md:text-[17px] md:h-6 md:w-170' placeholder='Copy Paste Code Here' />
+      <button onClick={handleclick} className='bg-green-400 w-180 mt-2 ml-9 py-2 text-3xl md:ml-1 md:w-16 md:text-[17px] md:py-[10px]'>Add</button>
       <div>
         {error && (
-          <div className="bg-red-300 border border-red-400 text-red-700 px-4 py-2 text-center mt-2">
+          <div className="bg-red-300 border border-red-400 text-red-700 px-4 py-4 mt-3 text-3xl md:text-lg md:px-4 md:py-2 text-center md:mt-2">
             {error}
           </div>
         )}
-        <p className='bg-blue-900 text-center text-white mt-2 text-lg p-2' >Drag-and-edit UI builder where you can add one HTML tag at a
+        <p className='bg-blue-900 text-center text-white mt-2 text-3xl p-5 md:mt-2 md:text-lg md:p-2' >Drag-and-edit UI builder where you can add one HTML tag at a
           time and visually modify its content and styles.</p>
       </div>
       <div className='flex flex-wrap gap-2'>

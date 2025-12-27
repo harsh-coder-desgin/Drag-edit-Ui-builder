@@ -17,7 +17,7 @@ function App() {
   
   return (
     <>
-      <div className='flex'>
+      <div className='flex-none xs:flex'>
         <Viewcomponet sendfunction={userdata} id={userid} />
         <EditComponent edit={dataformuser} id={iduser} />
       </div>

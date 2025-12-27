@@ -111,21 +111,21 @@ function EditShowfile({ comp }) {
 
     return (
         <div className='w-183'>
-            <div className="grid grid-cols-3 gap-3 p-6 w-183">
+            <div className="space-y-5 md:space-y-0 text-3xl md:grid grid-cols-3 md:gap-3 p-6 w-183 md:text-lg">
 
                 <div>
-                    <label  className={`text-center text-white text-lg ${bg === '' && 'line-through'}`} onClick={()=>{setBg('')}}>Background Color</label>
+                    <label  className={`text-center text-white ${bg === '' && 'line-through'}`} onClick={()=>{setBg('')}}>Background Color</label>
                     <input type="color" className='ml-2' onChange={(e) => { setBg(e.target.value) }} />
                 </div>
 
                 <div>
-                    <label className='text-center text-white text-lg'>Color</label>
+                    <label className='text-center text-white md:text-lg'>Color</label>
                     <input type="color" className='ml-2' value={textColor} onChange={(e) => { setTextColor(e.target.value) }} />
                 </div>
 
-                <div>
-                    <label className='text-center text-white text-sm'>Add FontSize</label>
-                    <input type="number" className='bg-white ml-1' value={userfontSize}
+                <div className='md:-mt-2'>
+                    <label className='text-center text-white md:text-sm'>Add FontSize</label>
+                    <input type="number" className='bg-white ml-2 md:ml-1' value={userfontSize}
                         onChange={e => {
                             const safeSize = calculateSafeFontSize(tagtext, Number(e.target.value));
                             setuserFontSize(Math.floor(safeSize));
@@ -146,17 +146,17 @@ function EditShowfile({ comp }) {
                     value={align}
                     onChange={e => setAlign(e.target.value)}
                     options={["Select", "text-left", "text-center", "text-right"]}
-                    className="block w-full px-3 py-2 mt-2  bg-black text-white"
+                    className="block w-full px-3 py-2 mt-2  bg-black text-white "
                 />
 
                 <div className='w-60'>
-                    <label className='text-center text-white text-sm'>Add Padding</label>
+                    <label className='text-center text-white md:text-sm'>Add Padding</label>
                     <div className='flex text-white'>
-                        <span className='mr-9'>p</span>
-                        <span className='mr-9'>pl</span>
-                        <span className='mr-9'>pr</span>
-                        <span className='mr-9'>pt</span>
-                        <span className='mr-9'>pb</span>
+                        <span className='md:mr-9 mr-6'>p</span>
+                        <span className='md:mr-9 mr-6'>pl</span>
+                        <span className='md:mr-9 mr-6'>pr</span>
+                        <span className='md:mr-9 mr-6'>pt</span>
+                        <span className='md:mr-9'>pb</span>
                     </div>
                     <input type="number" onChange={(e) => {
                         if (e.target.value < 0) e.target.value = 0;
@@ -203,7 +203,7 @@ function EditShowfile({ comp }) {
                 />
 
                 <div className='mt-9'>
-                    <label className='text-center text-white text-sm'>Add Border</label>
+                    <label className='text-center text-white md:text-sm'>Add Border</label>
                     <input type="number" className='bg-white ml-2' value={borderwidth}
                         onChange={e => {
                             if (e.target.value < 0) e.target.value = 0;
@@ -221,13 +221,13 @@ function EditShowfile({ comp }) {
                 />
 
                 <div className='mt-6'>
-                    <label className='text-center text-white text-lg'>Border Color</label>
+                    <label className='text-center text-white md:text-lg'>Border Color</label>
                     <input type="color" className='ml-2 ' value={bordercoloruser} onChange={(e) => { Setbordercoloruser(e.target.value) }} />
                 </div>
 
                 <div>
-                    <label className='text-center text-white text-sm'>Enter Text</label>
-                    <input type="text" className='bg-white' value={tagtext}
+                    <label className='text-center text-white md:text-sm'>Enter Text</label>
+                    <input type="text" className='bg-white ml-2 md:ml-0' value={tagtext}
                         onChange={e => {
                             let value = e.target.value;
                             if (value.length > MAX_CHARS) {
