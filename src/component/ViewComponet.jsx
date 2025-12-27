@@ -4,13 +4,20 @@ import Data from './data.json'
 import Style from './style.json'
 import { useRef } from 'react'
 
-function Viewcomponet({sendfunction ,id}) {
+function Viewcomponet({ sendfunction, id }) {
   let ref = useRef(0)
   const [allcomp, Setallcomp] = useState([])
   const [code, Setcode] = useState('')
+  const [error, Seterror] = useState('')
   const schemadata = Data
 
   const handleclick = () => {
+    console.log(allcomp.length);
+    if (allcomp.length >= 9) {
+      Seterror("Not more Tag allowed");
+      return
+    }
+
     const allstyleschema = Style
     const allValues = Object.values(allstyleschema.styledata);
     const allkeys = Object.keys(allstyleschema.styledata);
@@ -32,8 +39,46 @@ function Viewcomponet({sendfunction ,id}) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(code.replace("className", "class"), "text/html");
     const el = doc.body.firstElementChild;
+    
+    if (!el || !el.tagName) {
+      Seterror("Enter tag to edit");
+      return;
+    }
+
+    if (el.innerHTML.length > 140) {
+      Seterror("Max length");
+      return;
+    }
+
+    const firstTag = el.tagName.toLowerCase();
+    const textNodes = [...doc.body.childNodes].filter(
+      (n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim()
+    );
+
+    if (textNodes.length > 0) {
+      Seterror("Text outside HTML tag is not allowed");
+      return false;
+    }
+
+    const outerHTML = el.outerHTML.toLowerCase();
+    const tagRegex = new RegExp(
+      `^<${firstTag}[\\s\\S]*?>[\\s\\S]*?<\\/${firstTag}>$`
+    );
+
+    if (!tagRegex.test(outerHTML)) {
+      Seterror("Opening and closing tag must match");
+      return false;
+    }
+
+    if (doc.body.children.length !== 1) {
+      Seterror("Only one root tag is allowed");
+      return false;
+    }
+
+    Seterror("")
     schemadata.tag = el.tagName.toLocaleLowerCase()
     schemadata.text = el.textContent
+
     let clssss = el.className.split(" ")
 
     for (let i = 0; i < clssss.length; i++) {
@@ -92,37 +137,46 @@ function Viewcomponet({sendfunction ,id}) {
       }
     }
 
-    ref.current = ref.current + 1    
+    ref.current = ref.current + 1
     Setallcomp(prev => [
       ...prev,
       {
         id: ref.current,
         name: structuredClone(schemadata)
       }
-      ]);
-    }
+    ]);
+  }
 
-    useEffect(()=>{
-      sendfunction(allcomp)
-    },[allcomp])
+  useEffect(() => {
+    sendfunction(allcomp)
+    if (error) {
+    const t = setTimeout(() => Seterror(""), 3000);
+    return () => clearTimeout(t);
+  }
+  }, [allcomp,error])
 
-    const handleDragStart = (e) => {
-      id(e.target.id)
-    };
+  const handleDragStart = (e) => {
+    id(e.target.id)
+  };
 
   return (
     <div className='bg-gray-900 w-200 h-screen'>
-      <input onChange={(e) => { Setcode(e.target.value) }} value={code}
+      <input onChange={(e) => { Setcode(e.target.value), Seterror('') }} value={code}
         className='w-160 h-8 p-5 mt-5 ml-13 bg-gray-600 text-white font-3xl' placeholder='Copy Paste Code Here' />
       <button onClick={handleclick} className='bg-green-400 px-6 py-2'>Add</button>
       <div>
-        <p className='bg-blue-900 text-center text-white mt-2 text-lg p-2' >Drag-and-edit UI builder where you can add one HTML tag at a 
+        {error && (
+          <div className="bg-red-300 border border-red-400 text-red-700 px-4 py-2 text-center mt-2">
+            {error}
+          </div>
+        )}
+        <p className='bg-blue-900 text-center text-white mt-2 text-lg p-2' >Drag-and-edit UI builder where you can add one HTML tag at a
           time and visually modify its content and styles.</p>
       </div>
       <div className='flex flex-wrap gap-2'>
         {allcomp?.map((data) => (
           <div className='' key={data.id} id={data.id}
-             draggable onDragStart={(e) => handleDragStart(e)}>
+            draggable onDragStart={(e) => handleDragStart(e)}>
             <Showfile comp={data.name} />
           </div>
         ))}

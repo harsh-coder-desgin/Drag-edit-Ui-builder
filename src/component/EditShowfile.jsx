@@ -94,14 +94,28 @@ function EditShowfile({ comp }) {
     const blockTags = ["p", "div", "section", "article", "header"];
 
     const isInline = inlineTags.includes(comp.tag);
- 
+    const MAX_CHARS = 800;
+    const MAX_FONT = 60;
+    const MIN_FONT = 15;
+    const MAX_WIDTH = 183;
+
+    function calculateSafeFontSize(text, requestedSize) {
+        const CHAR_RATIO = 0.6;
+        const maxAllowedByWidth = MAX_WIDTH / (text.length * CHAR_RATIO);
+        return Math.max(
+            MIN_FONT,
+            Math.min(requestedSize, MAX_FONT, maxAllowedByWidth)
+        );
+    }
+
 
     return (
         <div className='w-183'>
-            <div className="grid grid-cols-3 gap-4 p-6 w-183">
-                <div className=''>
-                    <label className='text-center text-white text-lg'>Background Color</label>
-                    <input type="color" className='ml-2 ' value={bg} onChange={(e) => { setBg(e.target.value) }} />
+            <div className="grid grid-cols-3 gap-3 p-6 w-183">
+
+                <div>
+                    <label  className={`text-center text-white text-lg ${bg === '' && 'line-through'}`} onClick={()=>{setBg('')}}>Background Color</label>
+                    <input type="color" className='ml-2' onChange={(e) => { setBg(e.target.value) }} />
                 </div>
 
                 <div>
@@ -111,8 +125,11 @@ function EditShowfile({ comp }) {
 
                 <div>
                     <label className='text-center text-white text-sm'>Add FontSize</label>
-                    <input type="number" className='bg-white ml-5' value={userfontSize}
-                        onChange={e => setuserFontSize(e.target.value)} placeholder='Enter fontSize' min={0} max={80} />
+                    <input type="number" className='bg-white ml-1' value={userfontSize}
+                        onChange={e => {
+                            const safeSize = calculateSafeFontSize(tagtext, Number(e.target.value));
+                            setuserFontSize(Math.floor(safeSize));
+                        }} placeholder='Enter fontSize' min={0} />
                 </div>
 
                 <Select
@@ -141,11 +158,31 @@ function EditShowfile({ comp }) {
                         <span className='mr-9'>pt</span>
                         <span className='mr-9'>pb</span>
                     </div>
-                    <input type="number" onChange={(e) => { setPadding({ ...padding, pl: e.target.value, pr: e.target.value, pt: e.target.value, pb: e.target.value }) }} className='bg-white w-10 mr-2' min={0} defaultValue={0} max={80} />
-                    <input type="number" value={padding.pl} onChange={(e) => { setPadding({ ...padding, pl: e.target.value }) }} className='bg-white w-10 mr-2' min={0} max={80}/>
-                    <input type="number" value={padding.pr} onChange={(e) => { setPadding({ ...padding, pr: e.target.value }) }} className='bg-white w-10 mr-2' min={0} max={80} />
-                    <input type="number" value={padding.pt} onChange={(e) => { setPadding({ ...padding, pt: e.target.value }) }} className='bg-white w-10 mr-2' min={0} max={80} />
-                    <input type="number" value={padding.pb} onChange={(e) => { setPadding({ ...padding, pb: e.target.value }) }} className='bg-white w-10 mr-2' min={0} max={80} />
+                    <input type="number" onChange={(e) => {
+                        if (e.target.value < 0) e.target.value = 0;
+                        if (e.target.value > 26) e.target.value = 26;
+                        setPadding({ ...padding, pl: e.target.value, pr: e.target.value, pt: e.target.value, pb: e.target.value })
+                    }} className='bg-white w-10 mr-2' min={0} defaultValue={0} max={26} />
+                    <input type="number" value={padding.pl} onChange={(e) => {
+                        if (e.target.value < 0) e.target.value = 0;
+                        if (e.target.value > 26) e.target.value = 26;
+                        setPadding({ ...padding, pl: e.target.value })
+                    }} className='bg-white w-10 mr-2' min={0} max={26} />
+                    <input type="number" value={padding.pr} onChange={(e) => {
+                        if (e.target.value < 0) e.target.value = 0;
+                        if (e.target.value > 26) e.target.value = 26;
+                        setPadding({ ...padding, pr: e.target.value })
+                    }} className='bg-white w-10 mr-2' min={0} max={26} />
+                    <input type="number" value={padding.pt} onChange={(e) => {
+                        if (e.target.value < 0) e.target.value = 0;
+                        if (e.target.value > 26) e.target.value = 26;
+                        setPadding({ ...padding, pt: e.target.value })
+                    }} className='bg-white w-10 mr-2' min={0} max={26} />
+                    <input type="number" value={padding.pb} onChange={(e) => {
+                        if (e.target.value < 0) e.target.value = 0;
+                        if (e.target.value > 26) e.target.value = 26;
+                        setPadding({ ...padding, pb: e.target.value })
+                    }} className='bg-white w-10 mr-2' min={0} max={26} />
                 </div>
 
                 <Select
@@ -168,7 +205,11 @@ function EditShowfile({ comp }) {
                 <div className='mt-9'>
                     <label className='text-center text-white text-sm'>Add Border</label>
                     <input type="number" className='bg-white ml-2' value={borderwidth}
-                        onChange={e => Setborderwidth(e.target.value)} placeholder='Enter Border' min={0} max={19} />
+                        onChange={e => {
+                            if (e.target.value < 0) e.target.value = 0;
+                            if (e.target.value > 5) e.target.value = 5;
+                            Setborderwidth(e.target.value)
+                        }} placeholder='Enter Border' min={0} max={5} />
                 </div>
 
                 <Select
@@ -184,10 +225,24 @@ function EditShowfile({ comp }) {
                     <input type="color" className='ml-2 ' value={bordercoloruser} onChange={(e) => { Setbordercoloruser(e.target.value) }} />
                 </div>
 
-                <div>   
+                <div>
                     <label className='text-center text-white text-sm'>Enter Text</label>
                     <input type="text" className='bg-white' value={tagtext}
-                        onChange={e => Settagtext(e.target.value)} placeholder='Enter Text' maxLength={1000 - (18 * userfontSize)}/>
+                        onChange={e => {
+                            let value = e.target.value;
+                            if (value.length > MAX_CHARS) {
+                                value = value.slice(0, MAX_CHARS);
+                            }
+                            Settagtext(value);
+                            const safeSize = calculateSafeFontSize(tagtext, userfontSize);
+                            setuserFontSize(Math.floor(safeSize));
+                        }} placeholder='Enter Text'
+                        onPaste={(e) => {
+                            const pastedText = e.clipboardData.getData("text");
+                            const safeSize = calculateSafeFontSize(pastedText, userfontSize);
+                            setuserFontSize(Math.floor(safeSize));
+                        }}
+                    />
                 </div>
 
             </div>
@@ -198,12 +253,12 @@ function EditShowfile({ comp }) {
                 }} />
             </div>
             <div className='flex items-center justify-center'>
-                <Tag style={{
+                <Tag style={{ 
                     backgroundColor: `${bg}`, color: `${textColor}`, fontSize: `${userfontSize}px`, paddingLeft: `${padding.pl}px`,
                     paddingRight: `${padding.pr}px`, paddingTop: `${padding.pt}px`, paddingBottom: `${padding.pb}px`, borderWidth: `${borderwidth}px`,
                     borderColor: `${bordercoloruser}`
                 }}
-                    className={`break-all ${isInline ? "inline-flex" : "block w-184"} ${fontWeight} ${align}
+                    className={`break-all  ${isInline ? "inline-flex" : "block w-full"} ${fontWeight} ${align}
             ${radius} ${shadow}   ${borderuser}  ${styledata.variant[comp.variant]}`}
                 >{tagtext}</Tag>
             </div>
