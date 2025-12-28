@@ -62,11 +62,11 @@ function EditComponent({ edit, id }) {
   return (
     <div className='bg-gray-800 md:h-screen h-650 w-200 md:w-auto' onDragEnter={(e) => handleDragEnter(e, edit)}>
       <div>
-        {id || items.length !== 0 ? <div>
+        {id && items.length !== 0 || allitems && items.length !==0? <div>
           <h1 className='text-center bg-blue-900 text-3xl h-12 p-1 md:w-184 md:text-xl font-bold nd:h-10 md:p-2 text-white'>Edit your UI in live</h1>
           <div
             onClick={handleadd}
-            className="absolute top-1 right-32 w-32 h-auto bg-green-600 p-2 pl-5 text-white font-bold">
+            className="p-5 w-full text-2xl text-center md:text-[17px] md:text-left md:absolute md:top-1 md:right-32 md:w-32 h-auto bg-green-600 md:p-2 md:pl-5 text-white font-bold">
             Tap to Add
           </div>
           {items?.map((data) => (
@@ -76,13 +76,13 @@ function EditComponent({ edit, id }) {
           ))}
         </div> : <div className="min-h-screen flex items-center justify-center bg-gray-100">
           <div className="bg-gray-800 md:w-184 w-full h-screen border-2 border-dashed border-gray-400 flex items-center justify-center">
-            <p className="text-gray-300 text-lg">
+            <p className="text-gray-300 md:text-lg text-2xl">
               Drop tag to live edit
             </p>
-            <p className='ml-4 mr-4 text-blue-300'>OR</p>
+            <p className='ml-4 mr-4 text-blue-300 md:text-[17px] text-2xl'>OR</p>
             <div
               onClick={handleadd}
-              className="w-32 h-auto bg-green-400 p-2 pl-5 text-white font-bold">
+              className="md:w-32 w-40 h-auto bg-green-400 p-2 pl-5 md:text-white font-bold md:text-[17px] text-2xl">
               Tap to Add
             </div>
           </div>
@@ -111,11 +111,11 @@ function EditComponent({ edit, id }) {
           )}
         </div>
         {addpopup && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="md:text-lg text-2xl fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div className="w-80 max-h-[70vh] bg-gray-900 rounded-xl shadow-xl p-4 animate-scaleIn">
               <div className="flex justify-between items-center mb-3">
-                <h2 className="text-white font-semibold text-lg">
-                  🎉 Added Items
+                <h2 className="text-white font-semibold md:text-lg text-2xl">
+                  Added Items
                 </h2>
                 <button
                   onClick={() => Setaddpopup(false)}
@@ -124,12 +124,12 @@ function EditComponent({ edit, id }) {
                   ✕
                 </button>
               </div>
-              <div className="space-y-2 overflow-y-auto max-h-48">
+              <div className="space-y-2 overflow-y-auto md:max-h-48 max-h-68">
                 {allitems?.map((item) => (
                   <div
                     onClick={(e) => addlistfor(e, edit, item.id)}
                     key={item.id}
-                    className="bg-gray-700 text-white px-3 py-2 rounded-md text-sm hover:bg-green-900 transition cursor-pointer"
+                    className="bg-gray-700 text-white px-3 py-2 rounded-md md:text-sm hover:bg-green-900 transition cursor-pointer text-3xl"
                   >
                     {firsttag}{item.name.tag}{lasttag} {item.name.text} {firsttag}/{item.name.tag}{lasttag}
                   </div>
