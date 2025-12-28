@@ -35,9 +35,36 @@ src/
 <img width="1918" height="902" alt="Screenshot 2025-12-28 154142" src="https://github.com/user-attachments/assets/cd50c051-b647-471a-a895-1afa96b745b1" />
 
 
+## Getting Started
+
+### Run Locally
+1. Clone the repository
+   ```
+   git clone https://github.com/harsh-coder-desgin/Drag-edit-Ui-builder
+   ```
+
+3. Install dependencies
+   ```
+   npm install
+   ```
+
+5. Start the development server
+   ```
+   npm run dev
+   ```
 ## Live Demo
 Visit: https://your-live-demo-link.vercel.app
 
+## Future Work
+- Support nested elements (e.g., `<div>` containing `<p>`, `<span>`, etc.)
+- Add more advanced style options (flexbox, grid, animations)
+- Introduce AI-assisted style suggestions and layout recommendations
+- Allow exporting edited components as reusable HTML/CSS code
+- Add undo/redo functionality for safer editing
+
+## Author
+Harsh Patel  
+LinkedIn: https://www.linkedin.com/in/harsh-patel-2b3405303/
 
 
 
