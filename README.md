@@ -1,16 +1,43 @@
-# React + Vite
+# Drag edit Ui Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Drag edit Ui Builder is a lightweight web-based tool that allows users to quickly add, edit, and preview HTML elements with customizable styles in real time. The project focuses on simplicity, responsiveness, and an intuitive editing experience.
 
-Currently, two official plugins are available:
+## Description
+Drag edit Ui Builder is built to help users experiment with HTML structure and styling in a visual and interactive way. Instead of writing repetitive CSS manually, users can edit elements, adjust spacing, borders, colors, font sizes, and layout properties through simple controls and instantly preview the changes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React.js
+- JavaScript (ES6+)
+- Tailwind CSS
+- HTML5
 
-## React Compiler
+## Features
+- Live preview of HTML elements with real-time style updates
+- Edit and customize padding, margin, font size, borders, and colors
+- Responsive design optimized for both desktop and mobile devices
+- Input validation to prevent layout breaking and invalid styles
+- Simple and intuitive UI for fast editing and experimentation
+- Can copy pate code and use anywhere
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Folder Structure
 
-## Expanding the ESLint configuration
+```
+src/
+├── components/
+├── pages/
+├── styles/
+├── assets/
+├── App.jsx
+└── main.jsx
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshot
+<img width="1918" height="902" alt="Screenshot 2025-12-28 154142" src="https://github.com/user-attachments/assets/cd50c051-b647-471a-a895-1afa96b745b1" />
+
+
+## Live Demo
+Visit: https://your-live-demo-link.vercel.app
+
+
+
+
