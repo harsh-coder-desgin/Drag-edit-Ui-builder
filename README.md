@@ -53,7 +53,7 @@ src/
    npm run dev
    ```
 ## Live Demo
-Visit: https://your-live-demo-link.vercel.app
+Visit: https://drag-edit-ui-builder.vercel.app
 
 ## Future Work
 - Support nested elements (e.g., `<div>` containing `<p>`, `<span>`, etc.)
@@ -64,7 +64,7 @@ Visit: https://your-live-demo-link.vercel.app
 
 ## Author
 Harsh Patel  
-LinkedIn: https://www.linkedin.com/in/harsh-patel-2b3405303/
+LinkedIn: https://www.linkedin.com/in/harsh-patel-2b3405303
 
 
 
